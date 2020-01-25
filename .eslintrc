@@ -1,0 +1,61 @@
+{
+  "parser":  "@typescript-eslint/parser",
+  "env": {
+    "es6": true,
+    "commonjs": true,
+    "jest": true
+  },
+  "globals": {
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "prettier",
+    "plugin:prettier/recommended",
+    "prettier/standard"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["prettier", "typescript", "@typescript-eslint", "import"],
+  "rules": {
+    "curly": ["error", "all"],
+    "no-multi-spaces": ["error", { "ignoreEOLComments": false }],
+    "prettier/prettier": ["error"],
+    "linebreak-style": ["error", "unix"],
+    "newline-after-var": ["error", "always"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "vars": "all",
+      "args": "after-used",
+      "ignoreRestSiblings": false
+    }],
+    "global-require": "off",
+    "no-unreachable": ["error"],
+    "eol-last": ["error", "always"],
+    "arrow-body-style": ["error", "as-needed"],
+    "no-debugger": "error",
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 0, "maxEOF": 1 }],
+    "import/named": 0,
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "no-console": ["off"],
+    "import/order": [
+      "error",
+      {
+        "groups": ["external", "internal"]
+      }
+    ],
+    "import/no-extraneous-dependencies": ["error"]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@app", "./src"]
+        ],
+        "extensions": [".ts", ".js", ".jsx", ".tsx"]
+      }
+    }
+  }
+}

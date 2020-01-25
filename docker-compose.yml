@@ -41,16 +41,17 @@ services:
     depends_on:
       - prisma
       - postgres
+    working_dir: /app
     command:
       - /bin/sh
       - -c
       - |
         cd /app
-        sleep 20
+        sleep 5
         prisma deploy
         graphql get-schema --project database
         graphql codegen --project database
-        yarn && yarn start
+        yarn && yarn start:dev
 
 
 volumes:

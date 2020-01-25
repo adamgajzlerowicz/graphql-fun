@@ -1,14 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-import { UsersResolver } from './users/users.resolver';
+import { Controller, Get } from '@nestjs/common'
+import { AppService } from './app.service'
+import { UsersResolver } from './users/users.resolver'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly usersResolver: UsersResolver) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly usersResolver: UsersResolver
+  ) {}
 
   @Get()
   async getHello(): Promise<string> {
-    const result = await this.usersResolver.getUsers({}, {});
-    return JSON.stringify(result);
+    const result = await this.usersResolver.getUsers({}, {})
+
+    return JSON.stringify(result)
   }
 }

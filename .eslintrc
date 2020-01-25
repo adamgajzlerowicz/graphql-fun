@@ -6,6 +6,7 @@
     "jest": true
   },
   "globals": {
+    "process": true
   },
   "extends": [
     "eslint:recommended",

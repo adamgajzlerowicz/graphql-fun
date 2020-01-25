@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common'
 import { AppService } from './app.service'
 import { UsersResolver } from './users/users.resolver'
+import {User} from '../generated/prisma-client';
 
 @Controller()
 export class AppController {
@@ -10,9 +11,8 @@ export class AppController {
   ) {}
 
   @Get('users/')
-  async whatever(): Promise<string> {
-    const result = await this.usersResolver.getUsers({});
+  async whatever(): Promise<User[]> {
+    return await this.usersResolver.getUsers({});
 
-    return JSON.stringify(result)
   }
 }

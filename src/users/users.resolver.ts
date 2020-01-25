@@ -7,7 +7,7 @@ export class UsersResolver {
   constructor(private readonly prisma: PrismaService) {}
 
   @Query('users')
-  async getUsers(@Args() args, @Info() info): Promise<User[]> {
+  async getUsers(@Args() args, @Info() info = null): Promise<User[]> {
     return this.prisma.query.users(args, info)
   }
 }

@@ -9,9 +9,9 @@ export class AppController {
     private readonly usersResolver: UsersResolver
   ) {}
 
-  @Get()
-  async getHello(): Promise<string> {
-    const result = await this.usersResolver.getUsers({}, {})
+  @Get('users/')
+  async whatever(): Promise<string> {
+    const result = await this.usersResolver.getUsers({});
 
     return JSON.stringify(result)
   }

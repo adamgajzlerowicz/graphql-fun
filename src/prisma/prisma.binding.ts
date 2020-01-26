@@ -4,88 +4,24 @@ import { Options } from 'graphql-binding'
 import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
-  posts: <T = Post[]>(
-    args: {
-      where?: PostWhereInput
-      orderBy?: PostOrderByInput
-      skip?: Int
-      after?: string
-      before?: string
-      first?: Int
-      last?: Int
-    },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  post: <T = Post | null>(
-    args: { where: PostWhereUniqueInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  postsConnection: <T = PostConnection>(
-    args: {
-      where?: PostWhereInput
-      orderBy?: PostOrderByInput
-      skip?: Int
-      after?: string
-      before?: string
-      first?: Int
-      last?: Int
-    },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  node: <T = Node | null>(
-    args: { id: ID_Output },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-}
+    posts: <T = Array<Post | null>>(args: { where?: PostWhereInput | null, orderBy?: PostOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    post: <T = Post | null>(args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    postsConnection: <T = PostConnection>(args: { where?: PostWhereInput | null, orderBy?: PostOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
+  }
 
 export interface Mutation {
-  createPost: <T = Post>(
-    args: { data: PostCreateInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  updatePost: <T = Post | null>(
-    args: { data: PostUpdateInput; where: PostWhereUniqueInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  deletePost: <T = Post | null>(
-    args: { where: PostWhereUniqueInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  upsertPost: <T = Post>(
-    args: {
-      where: PostWhereUniqueInput
-      create: PostCreateInput
-      update: PostUpdateInput
-    },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  updateManyPosts: <T = BatchPayload>(
-    args: { data: PostUpdateInput; where?: PostWhereInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  deleteManyPosts: <T = BatchPayload>(
-    args: { where?: PostWhereInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-}
+    createPost: <T = Post>(args: { data: PostCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updatePost: <T = Post | null>(args: { data: PostUpdateInput, where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    deletePost: <T = Post | null>(args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    upsertPost: <T = Post>(args: { where: PostWhereUniqueInput, create: PostCreateInput, update: PostUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyPosts: <T = BatchPayload>(args: { data: PostUpdateManyMutationInput, where?: PostWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyPosts: <T = BatchPayload>(args: { where?: PostWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+  }
 
 export interface Subscription {
-  post: <T = PostSubscriptionPayload | null>(
-    args: { where?: PostSubscriptionWhereInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<AsyncIterator<T>>
-}
+    post: <T = PostSubscriptionPayload | null>(args: { where?: PostSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> 
+  }
 
 export interface Exists {
   Post: (where?: PostWhereInput) => Promise<boolean>
@@ -96,36 +32,22 @@ export interface Prisma {
   mutation: Mutation
   subscription: Subscription
   exists: Exists
-  request: <T = any>(
-    query: string,
-    variables?: { [key: string]: any }
-  ) => Promise<T>
-  delegate(
-    operation: 'query' | 'mutation',
-    fieldName: string,
-    args: {
-      [key: string]: any
-    },
-    infoOrQuery?: GraphQLResolveInfo | string,
-    options?: Options
-  ): Promise<any>
-  delegateSubscription(
-    fieldName: string,
-    args?: {
-      [key: string]: any
-    },
-    infoOrQuery?: GraphQLResolveInfo | string,
-    options?: Options
-  ): Promise<AsyncIterator<any>>
-  getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers
+  request: <T = any>(query: string, variables?: {[key: string]: any}) => Promise<T>
+  delegate(operation: 'query' | 'mutation', fieldName: string, args: {
+    [key: string]: any;
+}, infoOrQuery?: GraphQLResolveInfo | string, options?: Options): Promise<any>;
+delegateSubscription(fieldName: string, args?: {
+    [key: string]: any;
+}, infoOrQuery?: GraphQLResolveInfo | string, options?: Options): Promise<AsyncIterator<any>>;
+getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers;
 }
 
 export interface BindingConstructor<T> {
-  new (options: BasePrismaOptions): T
+  new(options: BasePrismaOptions): T
 }
 /**
  * Type Defs
- */
+*/
 
 const typeDefs = `type AggregatePost {
   count: Int!
@@ -147,7 +69,7 @@ type Mutation {
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   deletePost(where: PostWhereUniqueInput!): Post
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
+  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
   deleteManyPosts(where: PostWhereInput): BatchPayload!
 }
 
@@ -196,6 +118,7 @@ type PostConnection {
 }
 
 input PostCreateInput {
+  id: ID
   isPublished: Boolean
   title: String!
   text: String!
@@ -219,10 +142,6 @@ enum PostOrderByInput {
   title_DESC
   text_ASC
   text_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type PostPreviousValues {
@@ -249,9 +168,7 @@ input PostSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [PostSubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -272,6 +189,12 @@ input PostSubscriptionWhereInput {
 }
 
 input PostUpdateInput {
+  isPublished: Boolean
+  title: String
+  text: String
+}
+
+input PostUpdateManyMutationInput {
   isPublished: Boolean
   title: String
   text: String
@@ -433,105 +356,107 @@ type Subscription {
 }
 `
 
-export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({
-  typeDefs
-})
+export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDefs})
 
 /**
  * Types
- */
+*/
 
-export type PostOrderByInput =
-  | 'id_ASC'
-  | 'id_DESC'
-  | 'isPublished_ASC'
-  | 'isPublished_DESC'
-  | 'title_ASC'
-  | 'title_DESC'
-  | 'text_ASC'
-  | 'text_DESC'
-  | 'updatedAt_ASC'
-  | 'updatedAt_DESC'
-  | 'createdAt_ASC'
-  | 'createdAt_DESC'
+export type MutationType =   'CREATED' |
+  'UPDATED' |
+  'DELETED'
 
-export type MutationType = 'CREATED' | 'UPDATED' | 'DELETED'
-
-export interface PostWhereUniqueInput {
-  id?: ID_Input
-}
+export type PostOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'isPublished_ASC' |
+  'isPublished_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'text_ASC' |
+  'text_DESC'
 
 export interface PostCreateInput {
-  isPublished?: boolean
-  title: string
-  text: string
-}
-
-export interface PostUpdateInput {
-  isPublished?: boolean
-  title?: string
-  text?: string
+  id?: ID_Input | null
+  isPublished?: Boolean | null
+  title: String
+  text: String
 }
 
 export interface PostSubscriptionWhereInput {
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: string
-  updatedFields_contains_every?: string[] | string
-  updatedFields_contains_some?: string[] | string
-  node?: PostWhereInput
+  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput | null
+  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput | null
+  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput | null
+  mutation_in?: MutationType[] | MutationType | null
+  updatedFields_contains?: String | null
+  updatedFields_contains_every?: String[] | String | null
+  updatedFields_contains_some?: String[] | String | null
+  node?: PostWhereInput | null
+}
+
+export interface PostUpdateInput {
+  isPublished?: Boolean | null
+  title?: String | null
+  text?: String | null
+}
+
+export interface PostUpdateManyMutationInput {
+  isPublished?: Boolean | null
+  title?: String | null
+  text?: String | null
 }
 
 export interface PostWhereInput {
-  AND?: PostWhereInput[] | PostWhereInput
-  OR?: PostWhereInput[] | PostWhereInput
-  NOT?: PostWhereInput[] | PostWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  isPublished?: boolean
-  isPublished_not?: boolean
-  title?: string
-  title_not?: string
-  title_in?: string[] | string
-  title_not_in?: string[] | string
-  title_lt?: string
-  title_lte?: string
-  title_gt?: string
-  title_gte?: string
-  title_contains?: string
-  title_not_contains?: string
-  title_starts_with?: string
-  title_not_starts_with?: string
-  title_ends_with?: string
-  title_not_ends_with?: string
-  text?: string
-  text_not?: string
-  text_in?: string[] | string
-  text_not_in?: string[] | string
-  text_lt?: string
-  text_lte?: string
-  text_gt?: string
-  text_gte?: string
-  text_contains?: string
-  text_not_contains?: string
-  text_starts_with?: string
-  text_not_starts_with?: string
-  text_ends_with?: string
-  text_not_ends_with?: string
+  AND?: PostWhereInput[] | PostWhereInput | null
+  OR?: PostWhereInput[] | PostWhereInput | null
+  NOT?: PostWhereInput[] | PostWhereInput | null
+  id?: ID_Input | null
+  id_not?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  id_not_in?: ID_Output[] | ID_Output | null
+  id_lt?: ID_Input | null
+  id_lte?: ID_Input | null
+  id_gt?: ID_Input | null
+  id_gte?: ID_Input | null
+  id_contains?: ID_Input | null
+  id_not_contains?: ID_Input | null
+  id_starts_with?: ID_Input | null
+  id_not_starts_with?: ID_Input | null
+  id_ends_with?: ID_Input | null
+  id_not_ends_with?: ID_Input | null
+  isPublished?: Boolean | null
+  isPublished_not?: Boolean | null
+  title?: String | null
+  title_not?: String | null
+  title_in?: String[] | String | null
+  title_not_in?: String[] | String | null
+  title_lt?: String | null
+  title_lte?: String | null
+  title_gt?: String | null
+  title_gte?: String | null
+  title_contains?: String | null
+  title_not_contains?: String | null
+  title_starts_with?: String | null
+  title_not_starts_with?: String | null
+  title_ends_with?: String | null
+  title_not_ends_with?: String | null
+  text?: String | null
+  text_not?: String | null
+  text_in?: String[] | String | null
+  text_not_in?: String[] | String | null
+  text_lt?: String | null
+  text_lte?: String | null
+  text_gt?: String | null
+  text_gte?: String | null
+  text_contains?: String | null
+  text_not_contains?: String | null
+  text_starts_with?: String | null
+  text_not_starts_with?: String | null
+  text_ends_with?: String | null
+  text_not_ends_with?: String | null
+}
+
+export interface PostWhereUniqueInput {
+  id?: ID_Input | null
 }
 
 /*
@@ -542,26 +467,30 @@ export interface Node {
   id: ID_Output
 }
 
-/*
- * Information about pagination in a connection.
-
- */
-export interface PageInfo {
-  hasNextPage: boolean
-  hasPreviousPage: boolean
-  startCursor?: string
-  endCursor?: string
+export interface AggregatePost {
+  count: Int
 }
 
 export interface BatchPayload {
   count: Long
 }
 
-export interface PostPreviousValues {
+/*
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String | null
+  endCursor?: String | null
+}
+
+export interface Post extends Node {
   id: ID_Output
-  isPublished: boolean
-  title: string
-  text: string
+  isPublished: Boolean
+  title: String
+  text: String
 }
 
 /*
@@ -570,26 +499,8 @@ export interface PostPreviousValues {
  */
 export interface PostConnection {
   pageInfo: PageInfo
-  edges: PostEdge[]
+  edges: Array<PostEdge | null>
   aggregate: AggregatePost
-}
-
-export interface PostSubscriptionPayload {
-  mutation: MutationType
-  node?: Post
-  updatedFields?: string[]
-  previousValues?: PostPreviousValues
-}
-
-export interface Post extends Node {
-  id: ID_Output
-  isPublished: boolean
-  title: string
-  text: string
-}
-
-export interface AggregatePost {
-  count: Int
 }
 
 /*
@@ -598,7 +509,21 @@ export interface AggregatePost {
  */
 export interface PostEdge {
   node: Post
-  cursor: string
+  cursor: String
+}
+
+export interface PostPreviousValues {
+  id: ID_Output
+  isPublished: Boolean
+  title: String
+  text: String
+}
+
+export interface PostSubscriptionPayload {
+  mutation: MutationType
+  node?: Post | null
+  updatedFields?: Array<String> | null
+  previousValues?: PostPreviousValues | null
 }
 
 /*
@@ -607,9 +532,15 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
-export type String = string
+export type ID_Input = string | number
+export type ID_Output = string
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+*/
+export type Int = number
 
 /*
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -618,12 +549,6 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
-export type ID_Input = string | number
-export type ID_Output = string
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
+export type String = string

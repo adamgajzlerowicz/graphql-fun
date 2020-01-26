@@ -6,7 +6,6 @@ import { AppService } from './app.service'
 import { UsersModule } from './users/users.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { GraphqlOptions } from './graphql.options'
-import { FooResolver } from './foo/foo.resolver'
 
 @Module({
   imports: [
@@ -18,6 +17,6 @@ import { FooResolver } from './foo/foo.resolver'
     PrismaModule
   ],
   controllers: [AppController],
-  providers: [AppService, FooResolver]
+  providers: [AppService]
 })
 export class AppModule {}

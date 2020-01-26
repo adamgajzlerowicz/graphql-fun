@@ -1,7 +1,7 @@
 import { Query, Resolver, Args, Info, Mutation } from '@nestjs/graphql'
-import { HttpException, HttpStatus} from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
-import { User } from '../../generated/prisma-client'
+import { User } from '../prisma'
 
 @Resolver()
 export class UsersResolver {

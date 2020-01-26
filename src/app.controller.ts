@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common'
 import { UsersResolver } from './users/users.resolver'
-import { User } from '../generated/prisma-client'
+import { User } from './prisma'
 
 @Controller()
 export class AppController {

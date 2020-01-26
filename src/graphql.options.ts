@@ -7,7 +7,7 @@ export class GraphqlOptions implements GqlOptionsFactory {
   createGqlOptions(): Promise<GqlModuleOptions> | GqlModuleOptions {
     return {
       typePaths: ['./src/**/*.graphql'],
-      path: '/graphql',
+      path: '/',
       installSubscriptionHandlers: true,
       resolverValidationOptions: {
         requireResolversForResolveType: false

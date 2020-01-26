@@ -47,7 +47,9 @@ services:
       - |
         cd /app
         sleep 5
+        cd database
         prisma deploy
+        cd ..
         graphql get-schema --project database
         graphql codegen --project database
         yarn && yarn start:dev

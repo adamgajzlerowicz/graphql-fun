@@ -8,6 +8,7 @@ seed:
 hooks:
   post-deploy:
     - graphql get-schema --project database
-    - graphql codegen --project database
 
-
+generate:
+  - generator: typescript-client
+    output: ../src/prisma

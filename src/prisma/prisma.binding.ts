@@ -4,88 +4,24 @@ import { Options } from 'graphql-binding'
 import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
-  posts: <T = Array<Post | null>>(
-    args: {
-      where?: PostWhereInput | null
-      orderBy?: PostOrderByInput | null
-      skip?: Int | null
-      after?: String | null
-      before?: String | null
-      first?: Int | null
-      last?: Int | null
-    },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  post: <T = Post | null>(
-    args: { where: PostWhereUniqueInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T | null>
-  postsConnection: <T = PostConnection>(
-    args: {
-      where?: PostWhereInput | null
-      orderBy?: PostOrderByInput | null
-      skip?: Int | null
-      after?: String | null
-      before?: String | null
-      first?: Int | null
-      last?: Int | null
-    },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  node: <T = Node | null>(
-    args: { id: ID_Output },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T | null>
-}
+    posts: <T = Array<Post | null>>(args: { where?: PostWhereInput | null, orderBy?: PostOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    post: <T = Post | null>(args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    postsConnection: <T = PostConnection>(args: { where?: PostWhereInput | null, orderBy?: PostOrderByInput | null, skip?: Int | null, after?: String | null, before?: String | null, first?: Int | null, last?: Int | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> 
+  }
 
 export interface Mutation {
-  createPost: <T = Post>(
-    args: { data: PostCreateInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  updatePost: <T = Post | null>(
-    args: { data: PostUpdateInput; where: PostWhereUniqueInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T | null>
-  deletePost: <T = Post | null>(
-    args: { where: PostWhereUniqueInput },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T | null>
-  upsertPost: <T = Post>(
-    args: {
-      where: PostWhereUniqueInput
-      create: PostCreateInput
-      update: PostUpdateInput
-    },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  updateManyPosts: <T = BatchPayload>(
-    args: { data: PostUpdateManyMutationInput; where?: PostWhereInput | null },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-  deleteManyPosts: <T = BatchPayload>(
-    args: { where?: PostWhereInput | null },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<T>
-}
+    createPost: <T = Post>(args: { data: PostCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updatePost: <T = Post | null>(args: { data: PostUpdateInput, where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    deletePost: <T = Post | null>(args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    upsertPost: <T = Post>(args: { where: PostWhereUniqueInput, create: PostCreateInput, update: PostUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyPosts: <T = BatchPayload>(args: { data: PostUpdateManyMutationInput, where?: PostWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyPosts: <T = BatchPayload>(args: { where?: PostWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+  }
 
 export interface Subscription {
-  post: <T = PostSubscriptionPayload | null>(
-    args: { where?: PostSubscriptionWhereInput | null },
-    info?: GraphQLResolveInfo | string,
-    options?: Options
-  ) => Promise<AsyncIterator<T | null>>
-}
+    post: <T = PostSubscriptionPayload | null>(args: { where?: PostSubscriptionWhereInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T | null>> 
+  }
 
 export interface Exists {
   Post: (where?: PostWhereInput) => Promise<boolean>
@@ -96,36 +32,22 @@ export interface Prisma {
   mutation: Mutation
   subscription: Subscription
   exists: Exists
-  request: <T = any>(
-    query: string,
-    variables?: { [key: string]: any }
-  ) => Promise<T>
-  delegate(
-    operation: 'query' | 'mutation',
-    fieldName: string,
-    args: {
-      [key: string]: any
-    },
-    infoOrQuery?: GraphQLResolveInfo | string,
-    options?: Options
-  ): Promise<any>
-  delegateSubscription(
-    fieldName: string,
-    args?: {
-      [key: string]: any
-    },
-    infoOrQuery?: GraphQLResolveInfo | string,
-    options?: Options
-  ): Promise<AsyncIterator<any>>
-  getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers
+  request: <T = any>(query: string, variables?: {[key: string]: any}) => Promise<T>
+  delegate(operation: 'query' | 'mutation', fieldName: string, args: {
+    [key: string]: any;
+}, infoOrQuery?: GraphQLResolveInfo | string, options?: Options): Promise<any>;
+delegateSubscription(fieldName: string, args?: {
+    [key: string]: any;
+}, infoOrQuery?: GraphQLResolveInfo | string, options?: Options): Promise<AsyncIterator<any>>;
+getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers;
 }
 
 export interface BindingConstructor<T> {
-  new (options: BasePrismaOptions): T
+  new(options: BasePrismaOptions): T
 }
 /**
  * Type Defs
- */
+*/
 
 const typeDefs = `type AggregatePost {
   count: Int!
@@ -434,26 +356,24 @@ type Subscription {
 }
 `
 
-export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({
-  typeDefs
-})
+export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDefs})
 
 /**
  * Types
- */
+*/
 
-export type MutationType = 'CREATED' |
+export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export type PostOrderByInput = 'id_ASC' |
-  | 'id_DESC'
-  | 'isPublished_ASC'
-  | 'isPublished_DESC'
-  | 'title_ASC'
-  | 'title_DESC'
-  | 'text_ASC'
-  | 'text_DESC'
+export type PostOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'isPublished_ASC' |
+  'isPublished_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'text_ASC' |
+  'text_DESC'
 
 export interface PostCreateInput {
   id?: ID_Input | null

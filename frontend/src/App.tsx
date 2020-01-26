@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useQuery, useSubscription } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-// import {Post, PostWhereInput} from '../../api/src/prisma';
+import {Post, PostWhereInput} from '../../database/generated';
 
 const EXCHANGE_RATES = gql`
   {
@@ -26,12 +26,12 @@ const SUB = gql`
   }`;
 
 export default function App() {
-  // const { loading, error, data } = useQuery<Post[], PostWhereInput>(EXCHANGE_RATES);
-  const { loading, error, data, refetch } = useQuery(EXCHANGE_RATES);
+  const { loading, error, data, refetch } = useQuery<Post[], PostWhereInput>(EXCHANGE_RATES);
   const sub = useSubscription(SUB)
 
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line
   }, [sub])
 
   if (loading) return <p>Loading...</p>;

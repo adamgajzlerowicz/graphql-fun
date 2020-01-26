@@ -32,25 +32,21 @@ services:
   api:
     image: node:12
     volumes:
-      - ./api:/app
+      - .:/app
     ports:
       - 3001:3000
     environment:
-      - PATH=/app/node_modules/.bin:$PATH
+      - PATH=/app/api/node_modules/.bin:$PATH
     depends_on:
       - prisma
       - postgres
-    working_dir: /app
+    working_dir: /app/api
     command:
       - /bin/sh
       - -c
       - |
-        cd /app
+        yarn
         sleep 5
-        cd database
-        prisma deploy
-        prisma generate
-        cd ..
         graphql get-schema --project database
         graphql codegen --project database
         yarn && yarn start:dev
@@ -64,8 +60,8 @@ services:
     environment:
       - REACT_APP_API_URL=http://localhost:3001
     volumes:
-      - ./frontend:/app
-    working_dir: /app
+      - .:/app
+    working_dir: /app/frontend
     ports:
       - 3000:3000
     command:
@@ -76,6 +72,24 @@ services:
         yarn
         yarn start
 
+  prisma-generate:
+    image: node:12-alpine
+    depends_on:
+      - prisma
+      - postgres
+    volumes:
+      - .:/app
+    working_dir: /app/database
+    environment:
+      - PATH=/app/database/node_modules/.bin:$PATH
+    command:
+      - /bin/sh
+      - -c
+      - |
+        sleep 5
+        yarn
+        prisma deploy
+        prisma generate
 
 volumes:
   postgres:

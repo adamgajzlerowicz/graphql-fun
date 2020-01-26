@@ -10,4 +10,3 @@ export class PrismaService extends Prisma {
     })
   }
 }
-

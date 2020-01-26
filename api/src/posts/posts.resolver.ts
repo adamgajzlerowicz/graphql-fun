@@ -6,7 +6,7 @@ import {
   Resolver,
   Subscription
 } from '@nestjs/graphql'
-import { Post } from '../prisma'
+import { Post } from '../../../database/generated'
 import { BatchPayload } from '../prisma/prisma.binding'
 import { PrismaService } from '../prisma/prisma.service'
 

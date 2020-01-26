@@ -5,10 +5,6 @@ datamodel: datamodel.graphql
 seed:
   import: seed.graphql
 
-hooks:
-  post-deploy:
-    - graphql get-schema --project database
-
 generate:
   - generator: typescript-client
-    output: ../src/prisma
+    output: ./generated

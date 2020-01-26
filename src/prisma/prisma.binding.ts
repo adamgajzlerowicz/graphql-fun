@@ -6,40 +6,40 @@ import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 export interface Query {
   posts: <T = Post[]>(
     args: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
-      skip?: Int;
+      where?: PostWhereInput
+      orderBy?: PostOrderByInput
+      skip?: Int
       after?: string
       before?: string
-      first?: Int;
-      last?: Int;
+      first?: Int
+      last?: Int
     },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   post: <T = Post | null>(
     args: { where: PostWhereUniqueInput },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   postsConnection: <T = PostConnection>(
     args: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
-      skip?: Int;
+      where?: PostWhereInput
+      orderBy?: PostOrderByInput
+      skip?: Int
       after?: string
       before?: string
-      first?: Int;
-      last?: Int;
+      first?: Int
+      last?: Int
     },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   node: <T = Node | null>(
     args: { id: ID_Output },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
 }
 
 export interface Mutation {
@@ -47,36 +47,36 @@ export interface Mutation {
     args: { data: PostCreateInput },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   updatePost: <T = Post | null>(
     args: { data: PostUpdateInput; where: PostWhereUniqueInput },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   deletePost: <T = Post | null>(
     args: { where: PostWhereUniqueInput },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   upsertPost: <T = Post>(
     args: {
-      where: PostWhereUniqueInput;
-      create: PostCreateInput;
-      update: PostUpdateInput;
+      where: PostWhereUniqueInput
+      create: PostCreateInput
+      update: PostUpdateInput
     },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   updateManyPosts: <T = BatchPayload>(
     args: { data: PostUpdateInput; where?: PostWhereInput },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
   deleteManyPosts: <T = BatchPayload>(
     args: { where?: PostWhereInput },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<T>;
+  ) => Promise<T>
 }
 
 export interface Subscription {
@@ -84,44 +84,44 @@ export interface Subscription {
     args: { where?: PostSubscriptionWhereInput },
     info?: GraphQLResolveInfo | string,
     options?: Options
-  ) => Promise<AsyncIterator<T>>;
+  ) => Promise<AsyncIterator<T>>
 }
 
 export interface Exists {
-  Post: (where?: PostWhereInput) => Promise<boolean>;
+  Post: (where?: PostWhereInput) => Promise<boolean>
 }
 
 export interface Prisma {
-  query: Query;
-  mutation: Mutation;
-  subscription: Subscription;
-  exists: Exists;
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+  exists: Exists
   request: <T = any>(
     query: string,
     variables?: { [key: string]: any }
-  ) => Promise<T>;
+  ) => Promise<T>
   delegate(
     operation: 'query' | 'mutation',
     fieldName: string,
     args: {
-      [key: string]: any;
+      [key: string]: any
     },
     infoOrQuery?: GraphQLResolveInfo | string,
     options?: Options
-  ): Promise<any>;
+  ): Promise<any>
   delegateSubscription(
     fieldName: string,
     args?: {
-      [key: string]: any;
+      [key: string]: any
     },
     infoOrQuery?: GraphQLResolveInfo | string,
     options?: Options
-  ): Promise<AsyncIterator<any>>;
-  getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers;
+  ): Promise<AsyncIterator<any>>
+  getAbstractResolvers(filterSchema?: GraphQLSchema | string): IResolvers
 }
 
 export interface BindingConstructor<T> {
-  new (options: BasePrismaOptions): T;
+  new (options: BasePrismaOptions): T
 }
 /**
  * Type Defs
@@ -458,7 +458,7 @@ export type PostOrderByInput =
 export type MutationType = 'CREATED' | 'UPDATED' | 'DELETED'
 
 export interface PostWhereUniqueInput {
-  id?: ID_Input;
+  id?: ID_Input
 }
 
 export interface PostCreateInput {
@@ -474,34 +474,34 @@ export interface PostUpdateInput {
 }
 
 export interface PostSubscriptionWhereInput {
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  mutation_in?: MutationType[] | MutationType;
+  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: string
   updatedFields_contains_every?: string[] | string
   updatedFields_contains_some?: string[] | string
-  node?: PostWhereInput;
+  node?: PostWhereInput
 }
 
 export interface PostWhereInput {
-  AND?: PostWhereInput[] | PostWhereInput;
-  OR?: PostWhereInput[] | PostWhereInput;
-  NOT?: PostWhereInput[] | PostWhereInput;
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
+  AND?: PostWhereInput[] | PostWhereInput
+  OR?: PostWhereInput[] | PostWhereInput
+  NOT?: PostWhereInput[] | PostWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
   isPublished?: boolean
   isPublished_not?: boolean
   title?: string
@@ -539,7 +539,7 @@ export interface PostWhereInput {
 
  */
 export interface Node {
-  id: ID_Output;
+  id: ID_Output
 }
 
 /*
@@ -554,11 +554,11 @@ export interface PageInfo {
 }
 
 export interface BatchPayload {
-  count: Long;
+  count: Long
 }
 
 export interface PostPreviousValues {
-  id: ID_Output;
+  id: ID_Output
   isPublished: boolean
   title: string
   text: string
@@ -569,27 +569,27 @@ export interface PostPreviousValues {
 
  */
 export interface PostConnection {
-  pageInfo: PageInfo;
-  edges: PostEdge[];
-  aggregate: AggregatePost;
+  pageInfo: PageInfo
+  edges: PostEdge[]
+  aggregate: AggregatePost
 }
 
 export interface PostSubscriptionPayload {
-  mutation: MutationType;
-  node?: Post;
-  updatedFields?: string[];
-  previousValues?: PostPreviousValues;
+  mutation: MutationType
+  node?: Post
+  updatedFields?: string[]
+  previousValues?: PostPreviousValues
 }
 
 export interface Post extends Node {
-  id: ID_Output;
+  id: ID_Output
   isPublished: boolean
   title: string
   text: string
 }
 
 export interface AggregatePost {
-  count: Int;
+  count: Int
 }
 
 /*
@@ -597,7 +597,7 @@ export interface AggregatePost {
 
  */
 export interface PostEdge {
-  node: Post;
+  node: Post
   cursor: string
 }
 

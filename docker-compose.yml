@@ -4,7 +4,7 @@ services:
     image: prismagraphql/prisma:1.34
     restart: always
     ports:
-    - "4466:4466"
+    - 4466:4466
     environment:
       PRISMA_CONFIG: |
         port: 4466
@@ -22,7 +22,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
@@ -32,9 +32,9 @@ services:
   api:
     image: node:12
     volumes:
-      - .:/app
+      - ./api:/app
     ports:
-      - 3000:3000
+      - 3001:3000
     environment:
       - PATH=/app/node_modules/.bin:$PATH
     depends_on:
@@ -54,6 +54,27 @@ services:
         graphql get-schema --project database
         graphql codegen --project database
         yarn && yarn start:dev
+
+  frontend:
+    image: node:12-alpine
+    depends_on:
+      - prisma
+      - postgres
+      - api
+    environment:
+      - REACT_APP_API_URL=http://api:3001
+    volumes:
+      - ./frontend:/app
+    working_dir: /app
+    ports:
+      - 3000:3000
+    command:
+      - /bin/sh
+      - -c
+      - |
+        cd /frontend
+        yarn
+        yarn start
 
 
 volumes:

@@ -9,6 +9,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "noUnusedLocals": true,
     "incremental": true
   },
   "exclude": ["node_modules", "dist"]

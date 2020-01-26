@@ -1,5 +1,5 @@
 # source: http://prisma:4466
-# timestamp: Sat Jan 25 2020 23:21:49 GMT+0000 (Coordinated Universal Time)
+# timestamp: Sun Jan 26 2020 00:05:52 GMT+0000 (Coordinated Universal Time)
 
 type AggregateUser {
   count: Int!
@@ -247,4 +247,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  name: String
 }

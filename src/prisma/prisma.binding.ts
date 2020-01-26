@@ -295,6 +295,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  name: String
 }
 `
 
@@ -373,6 +374,7 @@ export interface UserWhereInput {
 
 export interface UserWhereUniqueInput {
   id?: ID_Input | null
+  name?: String | null
 }
 
 /*

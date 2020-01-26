@@ -49,6 +49,7 @@ services:
         sleep 5
         cd database
         prisma deploy
+        prisma generate
         cd ..
         graphql get-schema --project database
         graphql codegen --project database

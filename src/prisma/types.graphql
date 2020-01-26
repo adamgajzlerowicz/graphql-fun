@@ -1,0 +1,3 @@
+extend type Mutation {
+  createSuperPost(data: PostCreateInput!): Post!
+}

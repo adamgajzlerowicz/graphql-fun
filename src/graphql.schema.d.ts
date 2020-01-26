@@ -125,6 +125,7 @@ export abstract class IMutation {
     abstract upsertPost(where: PostWhereUniqueInput, create: PostCreateInput, update: PostUpdateInput): Post | Promise<Post>;
     abstract updateManyPosts(data: PostUpdateManyMutationInput, where?: PostWhereInput): BatchPayload | Promise<BatchPayload>;
     abstract deleteManyPosts(where?: PostWhereInput): BatchPayload | Promise<BatchPayload>;
+    abstract createSuperPost(data: PostCreateInput): Post | Promise<Post>;
 }
 
 export class PageInfo {

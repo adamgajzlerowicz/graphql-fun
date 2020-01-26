@@ -53,4 +53,9 @@ export class PostsResolver {
   onPostMutation(@Args() args, @Info() info) {
     return this.prisma.subscription.post(args, info)
   }
+
+  @Mutation('createSuperPost')
+  async createSuperPost(@Args() args, @Info() info): Promise<Post> {
+    return this.prisma.mutation.createPost(args, info)
+  }
 }

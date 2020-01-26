@@ -3,7 +3,7 @@ projects:
     schemaPath: src/prisma/prisma-types.graphql
     extensions:
       endpoints:
-        default: https://eu1.prisma.sh/adam-gajzlerowicz-1dadb3/demo/dev
+        default: http://prisma:4466
       codegen:
         - generator: prisma-binding
           language: typescript

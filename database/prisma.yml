@@ -1,11 +1,11 @@
-endpoint: https://eu1.prisma.sh/adam-gajzlerowicz-1dadb3/demo/dev
+endpoint: http://prisma:4466
 
-datamodel: datamodel.prisma
+datamodel: datamodel.graphql
 
-#generate:
-#  - generator: typescript-client
-#    output: ../src/prisma
+seed:
+  import: seed.graphql
 
 hooks:
   post-deploy:
     - graphql get-schema --project database
+

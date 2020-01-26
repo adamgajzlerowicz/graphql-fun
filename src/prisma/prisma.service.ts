@@ -5,8 +5,8 @@ import { Prisma } from './prisma.binding'
 export class PrismaService extends Prisma {
   constructor() {
     super({
-      endpoint: 'https://eu1.prisma.sh/adam-gajzlerowicz-1dadb3/demo/dev',
-      debug: true
+      endpoint: 'http://prisma:4466',
+      debug: false
     })
   }
 }

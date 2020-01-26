@@ -1,5 +1,5 @@
-import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import React, {useEffect} from 'react';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 // import {Post, PostWhereInput} from '../../api/src/prisma';
 
@@ -12,9 +12,27 @@ const EXCHANGE_RATES = gql`
   }
 `;
 
+
+const SUB = gql`
+  subscription newPosts {
+    post(where: {
+      mutation_in: [CREATED]
+    }) {
+      mutation
+      node {
+        text
+      }
+    }
+  }`;
+
 export default function App() {
   // const { loading, error, data } = useQuery<Post[], PostWhereInput>(EXCHANGE_RATES);
-  const { loading, error, data } = useQuery(EXCHANGE_RATES);
+  const { loading, error, data, refetch } = useQuery(EXCHANGE_RATES);
+  const sub = useSubscription(SUB)
+
+  useEffect(() => {
+    refetch()
+  }, [sub])
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -25,7 +43,7 @@ export default function App() {
 
 
   // @ts-ignore
-  return (data.posts || []).map((post: Post) => (
+  return (data.posts || []).map((post: any) => (
     <div key={post.id}>
       <p>
         {post.id}: {post.text}

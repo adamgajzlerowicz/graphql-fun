@@ -32,6 +32,7 @@ export default function App() {
 
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line
   }, [sub])
 
   if (loading) return <p>Loading...</p>;

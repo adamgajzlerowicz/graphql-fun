@@ -36,11 +36,11 @@ services:
     ports:
       - 3001:3000
     environment:
-      - PATH=/app/api/node_modules/.bin:$PATH
+      - PATH=/app/node_modules/.bin:$PATH
     depends_on:
       - prisma
       - postgres
-    working_dir: /app/api
+    working_dir: /app
     command:
       - /bin/sh
       - -c

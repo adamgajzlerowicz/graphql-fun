@@ -8,7 +8,7 @@ import {
 } from '@nestjs/graphql'
 import { NotImplementedException } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
-import { User } from '../../../database/generated'
+import { User } from '../../database/generated'
 import { BatchPayload } from '../prisma/prisma.binding'
 
 @Resolver()
@@ -17,7 +17,6 @@ export class UsersResolver {
 
   @Query('users')
   async getUsers(@Args() args, @Info() info): Promise<User[]> {
-    console.log('here');
     throw new NotImplementedException()
   }
 
@@ -51,7 +50,7 @@ export class UsersResolver {
     throw new NotImplementedException()
   }
 
-  @Subscription('users')
+  @Subscription('user')
   onUserMutation(@Args() args, @Info() info) {
     throw new NotImplementedException()
   }

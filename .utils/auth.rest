@@ -8,20 +8,8 @@ Content-Type: application/json
 
 ###
 
-POST {{host}}/auth/registration/
+GET {{host}}/profile
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-{
-	"email": "{{email}}",
-	"password1": "{{password}}",
-	"password2": "{{password}}",
-	"username": "{{email}}"
-}
 
-###
-
-GET {{host}}/auth/user/
-Content-Type: application/json
-Authorization: JWT {{token}}
-
-###

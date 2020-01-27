@@ -13,6 +13,12 @@ export class AppController {
     return this.authService.login(req.user)
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user
+  }
+
   // @Get('')
   // async foo(@Request() req) {
   //   const hashed = await hash('mypassword', 10)

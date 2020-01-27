@@ -4,6 +4,8 @@ import { JwtModule } from '@nestjs/jwt'
 import { AuthService } from './auth.service'
 import { UsersModule } from '../users/users.module'
 import { LocalStrategy } from './local.strategy'
+import { JwtStrategy } from './jwt.strategy'
+import { GqlAuthGuard } from './graphqlGuard'
 
 @Module({
   imports: [
@@ -14,7 +16,7 @@ import { LocalStrategy } from './local.strategy'
     UsersModule,
     PassportModule
   ],
-  providers: [AuthService, LocalStrategy],
-  exports: [AuthService],
+  providers: [AuthService, LocalStrategy, JwtStrategy, GqlAuthGuard],
+  exports: [AuthService]
 })
 export class AuthModule {}

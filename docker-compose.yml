@@ -83,6 +83,7 @@ services:
     working_dir: /app/database
     environment:
       - PATH=/app/database/node_modules/.bin:$PATH
+    tty: true
     command:
       - /bin/sh
       - -c
@@ -91,6 +92,7 @@ services:
         yarn
         prisma deploy
         prisma generate
+        tail -f /dev/null
 
 volumes:
   postgres:

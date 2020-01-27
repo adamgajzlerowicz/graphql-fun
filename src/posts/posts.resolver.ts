@@ -6,14 +6,17 @@ import {
   Resolver,
   Subscription
 } from '@nestjs/graphql'
+import { UseGuards } from '@nestjs/common'
 import { Post } from '../../database/generated'
 import { BatchPayload } from '../prisma/prisma.binding'
 import { PrismaService } from '../prisma/prisma.service'
+import { GqlAuthGuard } from '../auth/graphqlGuard'
 
 @Resolver()
 export class PostsResolver {
   constructor(private readonly prisma: PrismaService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Query('posts')
   async getPosts(@Args() args, @Info() info): Promise<Post[]> {
     return this.prisma.query.posts(args, info)

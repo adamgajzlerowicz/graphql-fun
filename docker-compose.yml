@@ -46,10 +46,10 @@ services:
       - -c
       - |
         yarn
-        sleep 5
+        sleep 10
         graphql get-schema --project database
         graphql codegen --project database
-        yarn && yarn start:dev
+        yarn start:dev
 
   frontend:
     image: node:12-alpine

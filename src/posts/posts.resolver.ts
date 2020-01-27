@@ -16,7 +16,6 @@ export class PostsResolver {
 
   @Query('posts')
   async getPosts(@Args() args, @Info() info): Promise<Post[]> {
-    console.log('herllo');
     return this.prisma.query.posts(args, info)
   }
 

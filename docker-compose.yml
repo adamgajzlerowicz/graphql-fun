@@ -49,6 +49,7 @@ services:
         sleep 10
         graphql get-schema --project database
         graphql codegen --project database
+        yarn build
         yarn start:dev
 
   frontend:

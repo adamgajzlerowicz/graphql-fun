@@ -37,6 +37,7 @@ services:
       - 3001:3000
     environment:
       - PATH=/app/node_modules/.bin:$PATH
+      - SECRET=ck5wfiiq0001k072096fvd599
     depends_on:
       - prisma
       - postgres

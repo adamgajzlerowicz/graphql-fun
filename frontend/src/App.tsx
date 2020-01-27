@@ -37,17 +37,20 @@ export default function App() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  if (!data) {
+  if (!data?.posts) {
    return null
   }
 
+  const renderData: Post[] = data?.posts || []
 
-  return (data?.posts || []).map((post: any) => (
-    <div key={post.id}>
-      <p>
-        {post.id}: {post.text}
-      </p>
-    </div>
-  ));
+  return <div>
+    {renderData.map((post: Post) => (
+      <div key={post.id}>
+        <p>
+          {post.id}: {post.text}
+        </p>
+      </div>
+    ))}
+  </div>
 }
 

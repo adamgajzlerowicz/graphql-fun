@@ -7,7 +7,7 @@ import {
   Subscription
 } from '@nestjs/graphql'
 import { NotImplementedException } from '@nestjs/common'
-import { hashSync } from 'bcrypt'
+import { hash } from 'bcrypt'
 import { PrismaService } from '../prisma/prisma.service'
 import { User, UserCreateInput } from '../../database/generated'
 import { BatchPayload } from '../prisma/prisma.binding'
@@ -32,7 +32,7 @@ export class UsersResolver {
     @Args() args: { data: UserCreateInput },
     @Info() info
   ): Promise<Omit<User, 'password'>> {
-    const hashedPass = hashSync(args.data.password, SALT_ROUNDS)
+    const hashedPass = await hash(args.data.password, SALT_ROUNDS)
 
     const result = await this.prisma.mutation.createUser(
       {

@@ -1,0 +1,27 @@
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+	"username": "{{username}}",
+	"password": "{{password}}"
+}
+
+###
+
+POST {{host}}/auth/registration/
+Content-Type: application/json
+
+{
+	"email": "{{email}}",
+	"password1": "{{password}}",
+	"password2": "{{password}}",
+	"username": "{{email}}"
+}
+
+###
+
+GET {{host}}/auth/user/
+Content-Type: application/json
+Authorization: JWT {{token}}
+
+###

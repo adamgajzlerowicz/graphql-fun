@@ -26,7 +26,7 @@ const SUB = gql`
   }`;
 
 export default function App() {
-  const { loading, error, data, refetch } = useQuery<Post[], PostWhereInput>(EXCHANGE_RATES);
+  const { loading, error, data, refetch } = useQuery<{posts: Post[]}, PostWhereInput>(EXCHANGE_RATES);
   const sub = useSubscription(SUB)
 
   useEffect(() => {
@@ -42,8 +42,7 @@ export default function App() {
   }
 
 
-  // @ts-ignore
-  return (data.posts || []).map((post: any) => (
+  return (data?.posts || []).map((post: any) => (
     <div key={post.id}>
       <p>
         {post.id}: {post.text}

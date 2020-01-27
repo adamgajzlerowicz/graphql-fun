@@ -6,7 +6,7 @@ export class PrismaService extends Prisma {
   constructor() {
     super({
       endpoint: 'http://prisma:4466',
-      debug: false
+      debug: true
     })
   }
 }
